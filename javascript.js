@@ -82,7 +82,12 @@ $(document).ready(function() {
         newGames.append(gifRating);
         newGames.append(gifTitle);
 
-        $(".gifimg").prepend(newGames);
+        if((i+1)%2 === 0) {
+          $("#gifeven").prepend(newGames)
+        }
+        else {
+          $("#gifodd").prepend(newGames);
+        }
       }
     });
   }
