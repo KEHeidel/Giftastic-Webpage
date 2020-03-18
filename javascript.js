@@ -122,5 +122,13 @@ $(document).ready(function() {
           }
         }
       
+        // function to add games to the games array
+        function addgames(name) {
+          if (!games.includes(name)) {
+            games.push(name);
+            renderButtons();
+          }
+        }
+      
 
   });
