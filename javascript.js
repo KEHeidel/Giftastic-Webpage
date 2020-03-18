@@ -62,5 +62,53 @@ $(document).ready(function() {
           }
         }
       
+        // function to display images in the image gallery
+        function display() {
+          event.preventDefault();
+          $(".gifimg").empty();
+          var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apikey + "&q=" + searchinfo + "&limit=" + apilimit + "&offset=" + apioffset + "&lang=" + apilang;
+        
+          $.when(
+            $.ajax({
+              url: queryURL,
+              method: "GET"
+            })
+          )
+          .then(function(response) {
+            // detecting no return searches
+            if (response.pagination.total_count == 0) {
+              var itemIndex = games.indexOf(searchinfo);
+      
+              if (itemIndex > -1) {
+                games.splice(itemIndex, 1);
+                renderButtons();
+              }
+            }
+            // save response from API call to a variable
+            var results = response.data;
+            for (var i = 0; i < results.length; i++) {
+              var newGames = $("<div class='game-name'>");
+              var gifRating = $("<body>").text(
+                "Rating: " + results[i].rating.toUpperCase()
+              );
+              var gifTitle = $("<body>").text(
+                "Title:  " + results[i].title.toUpperCase()
+              );
+              var gifURL = results[i].images.fixed_height_still.url;
+              var gif = $("<img>");
+              gif.attr("src", gifURL);
+              gif.attr("data-still", results[i].images.fixed_height_still.url);
+              gif.attr("data-animate", results[i].images.fixed_height.url);
+              gif.attr("data-state", "still");
+              gif.addClass("animate-gif");
+      
+              newGames.append(gifRating);
+              newGames.append(gifTitle);
+              newGames.append(gif);
+      
+              $(".gifimg").prepend(newGames);
+            }
+          });
+        }
 
   });
