@@ -42,6 +42,7 @@ $(document).ready(function() {
   function display() {
     event.preventDefault();
     $(".gifimg").empty();
+    apioffset = Math.floor(Math.random() * 100);
     var queryURL =
       "https://api.giphy.com/v1/gifs/search?api_key=" + apikey + "&q=" + searchinfo + "&limit=" + apilimit + "&offset=" + apioffset + "&lang=" + apilang;
 
