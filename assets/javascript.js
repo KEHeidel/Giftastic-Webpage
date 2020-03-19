@@ -22,7 +22,8 @@ $(document).ready(function() {
   var apirating = "PG";
   var apilang = "en";
 
-  // function to draw gif button list
+  // function: renderButtons
+  // function to draw gif button list by reading contents of the array. function runs when page loads and when submit button is pressed when searching for a new game.
   function renderButtons() {
     $(".gifarray").empty();
     for (var i = 0; i < games.length; i++) {
@@ -38,7 +39,8 @@ $(document).ready(function() {
     }
   }
 
-  // function to display images in the image gallery
+  // function: display
+  // function to display images in the image gallery. function performs ajax call to get gif images from the giphy api. loads random gif images when button at top of page is pressed.
   function display() {
     event.preventDefault();
     $(".gifimg").empty();
@@ -52,7 +54,7 @@ $(document).ready(function() {
         method: "GET"
       })
     ).then(function(response) {
-      // detecting no return searches
+      // detecting if there are no return searches
       if (response.pagination.total_count == 0) {
         var itemIndex = games.indexOf(searchinfo);
 
@@ -92,7 +94,9 @@ $(document).ready(function() {
       }
     });
   }
-  // function for animating gif
+
+  // function: gifPlay
+  // function for animating gif. function starts gif animation when image is pressed and then will return to a still image when image is clicked again.
   function gifPlay() {
     var state = $(this).attr("data-state");
     if (state === "still") {
@@ -104,6 +108,7 @@ $(document).ready(function() {
     }
   }
 
+  // function: addgames
   // function to add games to the games array
   function addgames(name) {
     if (!games.includes(name)) {
